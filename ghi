@@ -1923,6 +1923,10 @@ module GHI
           "#{bright { n.to_s.rjust nmax }}:",
           truncate(title, l),
           format_labels(labels),
+          (fg(:green) {i['milestone']['title']} if i['milestone'] ),
+          (fg(:green) {'NO-MILE'} if not i['milestone'] ),
+          (fg(:blue) {i['assignee']['login']} if i['assignee'] ),
+          (fg(:blue) {'NO-ASGN'} if not i['assignee'] ),
           (fg('aaaaaa') { c } unless c == 0),
           (fg('aaaaaa') { '↑' } if p),
           (fg(:yellow) { '@' } if a)
@@ -3277,6 +3281,7 @@ module GHI
             end
           end
           opts.on('-v', '--verbose') { self.verbose = true }
+          # opts.on('-e', '--extra', 'Extra list fields: milestone, assigned' ) { self.extra_fields = true }
           opts.on('-w', '--web') { self.web = true }
           opts.separator ''
           opts.separator 'Global options'
